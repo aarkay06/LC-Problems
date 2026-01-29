@@ -16,14 +16,13 @@ public:
         if (root == NULL)
             return 0;
         int left = 0, right = 0;
-        // if (root->left)
 
         left = treeSize(root->left);
-        // if (root->right)
-        right = treeSize(root->right);
-        if (left ==-1 || right == -1)
+        if (left == -1)
             return -1;
-        cout << "Left: " << left << ", right: " << right;
+        right = treeSize(root->right);
+        if (right == -1)
+            return -1;
         if (abs(left - right) > 1)
             return -1;
         else
@@ -33,10 +32,6 @@ public:
     bool isBalanced(TreeNode* root) {
         if (root == NULL)
             return true;
-        int size = treeSize(root);
-        cout << "size: " << size;
-        if (size == -1)
-            return false;
-        return true;
+        return treeSize(root) !=-1;
     }
 };
