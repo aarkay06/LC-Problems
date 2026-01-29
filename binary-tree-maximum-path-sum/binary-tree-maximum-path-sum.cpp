@@ -12,7 +12,6 @@
 class Solution {
 public:
     int sum = INT_MIN;
-
     int helper(TreeNode* root) {
         if (root == NULL)
             return 0;
@@ -21,11 +20,8 @@ public:
         sum = max(sum, left+right+root->val);
         return (max(left+ root->val, max(0, right+ root->val)) );
     }
-
     int maxPathSum(TreeNode* root) {
         helper(root);
         return sum;
     }
-
-
 };
