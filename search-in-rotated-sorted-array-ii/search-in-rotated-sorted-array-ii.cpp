@@ -2,7 +2,6 @@ class Solution {
 public:
     int search(vector<int>& nums, int t) {
 
-
         // NEW CODE
         int start = 0;
         int end = nums.size() - 1;
@@ -14,23 +13,22 @@ public:
             if (nums[mid] == t)
                 return true;
 
-            if(nums[mid] == nums[start] && nums[start] == nums[end]){
+            if (nums[mid] == nums[start] && nums[start] == nums[end]) {
                 end--;
                 start++;
                 continue;
             }
             if (nums[start] <= nums[mid]) {
                 if (nums[start] <= t && t < nums[mid]) {
-                    end = mid - 1; 
+                    end = mid - 1;
                 } else {
-                    start = mid + 1; 
+                    start = mid + 1;
                 }
-            }
-            else {
+            } else {
                 if (nums[mid] < t && t <= nums[end]) {
                     start = mid + 1;
                 } else {
-                    end = mid - 1; 
+                    end = mid - 1;
                 }
             }
         }
