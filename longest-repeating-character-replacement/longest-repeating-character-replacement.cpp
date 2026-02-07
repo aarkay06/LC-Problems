@@ -3,21 +3,15 @@ public:
     int characterReplacement(string s, int m) {
         int i = 0, j = 0, maxfreq = 0, len = 0;
         vector<int> freq(26, 0);
-        for (; j < s.size();) {
+        for (; j < s.size();j++) {
             freq[(s[j] - 'A')]++;
             maxfreq = max(maxfreq, freq[(s[j] - 'A')]);
-            cout << (s[j] - 'A') << endl;
-            if ((j - i + 1) - maxfreq <= m) {
-
-                len = max(j - i + 1, len);
-                j++;
-            } else {
+            if ((j - i + 1) - maxfreq > m) {
                 freq[(s[i] - 'A')]--;
                 i++;
-                j++;
-            }
+            } 
+            len = max(j - i + 1, len);
         }
-
         return len;
     }
 };
