@@ -11,11 +11,13 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        if(lists.size() ==0) return NULL;
-        for (int i = 1; i < lists.size(); i++) {
-            lists[0] = mergeTwoLists(lists[0], lists[i]);
+        if (lists.size() == 0)
+            return NULL;
+        while (lists.size() > 1) {
+            lists.push_back(mergeTwoLists(lists[0], lists[1]));
+            lists.erase(lists.begin());
+            lists.erase(lists.begin());
         }
-
         return lists[0];
     }
 
