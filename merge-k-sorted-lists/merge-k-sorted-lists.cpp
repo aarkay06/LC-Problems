@@ -13,12 +13,19 @@ public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         if (lists.size() == 0)
             return NULL;
-        while (lists.size() > 1) {
-            lists.push_back(mergeTwoLists(lists[0], lists[1]));
-            lists.erase(lists.begin());
-            lists.erase(lists.begin());
+        deque<ListNode*> que;
+        for (ListNode* node : lists) {
+            que.push_back(node);
         }
-        return lists[0];
+
+        while (que.size() > 1) {
+            ListNode* l = que.front();
+            que.pop_front();
+            ListNode* l2 = que.front();
+            que.pop_front();
+            que.push_back(mergeTwoLists(l, l2));
+        }
+        return que.front();
     }
 
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
