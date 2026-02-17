@@ -11,23 +11,10 @@ public:
         }
         return time <= hour;
     }
-
-     int minSpeedOnTime(vector<int> &dist, double hour)
+    int minSpeedOnTime(vector<int> &dist, double hour)
     {
         int min = 1;
-        int max_distance = *max_element(dist.begin(), dist.end());
-        cout << "max distance is " << max_distance << endl;
-        double last_speed;
-        if (hour - (int)hour == 0)
-        {
-            last_speed = 0;
-        }
-        else
-        {
-            last_speed = ((double)dist[dist.size() - 1] / (hour - (int)hour)) +1;
-        }
-        cout << "speed for the last distance is " << last_speed << endl;
-        int max = max_distance > last_speed ? max_distance : last_speed;
+        int max = 1e7;
         int speed = -1;
         while (min <= max)
         {
