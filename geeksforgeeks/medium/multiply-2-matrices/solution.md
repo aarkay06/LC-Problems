@@ -19,7 +19,7 @@ class Solution {
             for(int j=0; j<n; j++){
                 int sum =0;
                 for(int k=0; k<n; k++){
-                    sum +=( mat1[i][k] * mat2[j][k]);
+                    sum +=( mat1[i][k] * mat2[k][j]);
                 }
                 res[i][j] = sum;
             }
