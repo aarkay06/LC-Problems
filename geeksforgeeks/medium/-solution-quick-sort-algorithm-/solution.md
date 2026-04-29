@@ -16,7 +16,7 @@ class Solution {
      {
          int part = partition(arr, low, high);
          quickSort(arr,low, part-1 );
-          quickSort(arr,part, high );
+          quickSort(arr,part+1, high );
      }
     }
   public:
