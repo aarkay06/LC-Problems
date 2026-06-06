@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool bfs(int i, int j, vector<vector<char>>& board, int index,
+    bool dfs(int i, int j, vector<vector<char>>& board, int index,
              string& word) {
 
         if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size() ||
@@ -12,10 +12,10 @@ public:
         if (index == word.size() - 1)
             return true;
         board[i][j] = '^';
-        if (bfs(i - 1, j, board, index + 1, word) ||
-            bfs(i + 1, j, board, index + 1, word) ||
-            bfs(i, j - 1, board, index + 1, word) ||
-            bfs(i, j + 1, board, index + 1, word))
+        if (dfs(i - 1, j, board, index + 1, word) ||
+            dfs(i + 1, j, board, index + 1, word) ||
+            dfs(i, j - 1, board, index + 1, word) ||
+            dfs(i, j + 1, board, index + 1, word))
             return true;
 
         board[i][j] = a;
@@ -25,7 +25,7 @@ public:
         for (int i = 0; i < board.size(); i++) {
             for (int j = 0; j < board[i].size(); j++) {
                 if (board[i][j] == word[0]) {
-                    if (bfs(i, j, board, 0, word))
+                    if (dfs(i, j, board, 0, word))
                         return true;
                 }
             }
