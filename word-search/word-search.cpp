@@ -12,9 +12,9 @@ public:
         if (index == word.size() - 1)
             return true;
         board[i][j] = '^';
-        if (bfs(i - 1, j, board, index + 1, word) +
-            bfs(i + 1, j, board, index + 1, word) +
-            bfs(i, j - 1, board, index + 1, word) +
+        if (bfs(i - 1, j, board, index + 1, word) ||
+            bfs(i + 1, j, board, index + 1, word) ||
+            bfs(i, j - 1, board, index + 1, word) ||
             bfs(i, j + 1, board, index + 1, word))
             return true;
 
