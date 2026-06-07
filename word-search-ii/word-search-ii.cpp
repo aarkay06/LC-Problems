@@ -2,11 +2,11 @@ class Solution {
 public:
     struct TrieNode {
         vector<TrieNode*> child;
-        bool end;
+        string word;
 
         TrieNode() {
             child.assign(26, nullptr);
-            end = false;
+            word = "";
         }
     };
 
@@ -28,61 +28,32 @@ public:
                 curr = curr->child[idx];
             }
 
-            curr->end = true;
+            curr->word = word;
         }
 
-        bool search(string word) {
-            TrieNode* curr = root;
-
-            for (char c : word) {
-                int idx = c - 'a';
-
-                if (curr->child[idx] == nullptr)
-                    return false;
-
-                curr = curr->child[idx];
-            }
-
-            if( !curr->end) return false;
-            curr->end=false;
-            return true;
-        }
-
-        bool startsWith(string prefix) {
-            TrieNode* curr = root;
-
-            for (char c : prefix) {
-                int idx = c - 'a';
-
-                if (curr->child[idx] == nullptr)
-                    return false;
-
-                curr = curr->child[idx];
-            }
-
-            return true;
-        }
     };
 
-    void bfs(int i, int j, Trie& trie, vector<vector<char>>& board, string str,
+    void dfs(int i, int j, Trie& trie, TrieNode* node, vector<vector<char>>& board, 
              vector<string>& res, vector<string>& words) {
 
         if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size() ||
             board[i][j] == '^')
             return;
 
-        str += board[i][j];
-        char a = board[i][j];
-        bool okay = false;
-        if(!trie.startsWith(str)) return;
-        if(trie.search(str)) res.push_back(str);
-
+        int idx = board[i][j] - 'a';
+        if (node->child[idx] == nullptr)
+            return;
+        node = node->child[idx];
+        if (node->word != "" ) {
+            res.push_back(node->word);
+            node->word = "";
+        }
         board[i][j] = '^';
-        bfs(i - 1, j, trie, board, str, res, words);
-        bfs(i + 1, j, trie, board, str, res, words);
-        bfs(i, j - 1, trie, board, str, res, words);
-        bfs(i, j + 1, trie, board, str, res, words);
-        board[i][j] = a;
+        dfs(i - 1, j, trie, node, board,  res, words);
+        dfs(i + 1, j, trie, node, board,  res, words);
+        dfs(i, j - 1, trie, node, board,  res, words);
+        dfs(i, j + 1, trie, node, board,  res, words);
+        board[i][j] = idx + 'a';
         return;
     }
 
@@ -97,7 +68,7 @@ public:
         vector<string> res;
         for (int i = 0; i < board.size(); i++) {
             for (int j = 0; j < board[i].size(); j++) {
-                bfs(i, j, trie, board, str, res, words);
+                dfs(i, j, trie,trie.root, board, res, words);
             }
         }
 
