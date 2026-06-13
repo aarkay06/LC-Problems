@@ -1,7 +1,7 @@
 class Solution {
 public:
-    bool bfs(int node,
-             vector<vector<int>>& graph, queue<pair<int, int>>& q, vector<int> &visited) {
+    bool bfs(int node, vector<vector<int>>& graph, queue<pair<int, int>>& q,
+             vector<int>& visited) {
 
         q.push({node, 1});
         visited[node] = 1;
@@ -9,25 +9,26 @@ public:
         while (!q.empty()) {
             auto [node, s] = q.front();
             q.pop();
-            if (s == 1) {
-                if (visited[node] == 2)
-                    return false;
-                visited[node] = 1;
-            }
+            // if (s == 1) {
+            //     if (visited[node] == 2)
+            //         return false;
+            //     visited[node] = 1;
+            // }
 
-            if (s == 2) {
-              if (visited[node] == 1)
-                    return false;
-                visited[node] = 2;
-            }
+            // if (s == 2) {
+            //     if (visited[node] == 1)
+            //         return false;
+            //     visited[node] = 2;
+            // }
 
             // if(graph[node].size() == 0) return false;
 
             for (int i = 0; i < graph[node].size(); i++) {
-                if (s == 1 && !visited[graph[node][i]]) {
-                    q.push({graph[node][i], 2});
-                } else if (s == 2 && !visited[graph[node][i]]) {
-                    q.push({graph[node][i], 1});
+                if (!visited[graph[node][i]]) {
+                    q.push({graph[node][i], 3 - s});
+                    visited[graph[node][i]] = 3 -s;
+                } else if (visited[graph[node][i]] ==  s) {
+                    return false;
                 }
             }
         }
@@ -39,7 +40,7 @@ public:
         queue<pair<int, int>> q;
         for (int i = 0; i < graph.size(); i++) {
             if (!visited[i] && graph[i].size() > 0) {
-                bool a = bfs(i,graph, q, visited);
+                bool a = bfs(i, graph, q, visited);
                 if (a == false)
                     return false;
             }
