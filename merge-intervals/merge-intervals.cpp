@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+
+        vector<vector<int>> res;
+        sort(intervals.begin(), intervals.end());
+
+        res.push_back(intervals[0]);
+
+        for (int i = 1; i < intervals.size(); i++) {
+            int a = res[res.size() - 1][0];
+            int b = res[res.size() - 1][1];
+            int c = intervals[i][0];
+            int d = intervals[i][1];
+
+            if (c <= b || a == c) {
+                vector<int> arr(2);
+                arr[0] = a;
+                arr[1] = max(b, d);
+                res.pop_back();
+                res.push_back(arr);
+            } else{
+                res.push_back({c,d});
+            }
+        }
+
+        return res;
+    }
+};
