@@ -13,7 +13,7 @@ public:
             int c = intervals[i][0];
             int d = intervals[i][1];
 
-            if (c <= b || a == c) {
+            if (c <= b ) {
                 vector<int> arr(2);
                 arr[0] = a;
                 arr[1] = max(b, d);
