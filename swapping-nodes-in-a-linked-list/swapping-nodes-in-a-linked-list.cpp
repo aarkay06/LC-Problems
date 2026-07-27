@@ -14,23 +14,16 @@ public:
     ListNode* n2 = nullptr;
     int size = 0;
     void recursion(ListNode* head, int k, int i) {
-
-        if (head == nullptr){
-          
-            
-            // cout << "size is: " << size << "\n";
-              return; }
+        if (head == nullptr)
+            return;
         else {
-            // cout << "i: " << i << " val: " << head->val << "\n";
             size++;
             if (i == k)
                 n1 = head;
             recursion(head->next, k, i + 1);
         }
-        // cout << "k " << i-size << " val: " << head->val << "\n";
         if (size - i + 1 == k)
             n2 = head;
-        
     }
 
     ListNode* swapNodes(ListNode* head, int k) {
