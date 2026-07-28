@@ -10,20 +10,29 @@
  */
 class Solution {
 public:
-    bool isPalindrome(ListNode* head) {
-        vector<int> El;
-        while(head){
-            El.push_back(head->val);
-            head = head->next;
+    ListNode* n;
+    bool recursion(ListNode* head) {
+        if (!head)
+            return true;
+
+        if (head->next == nullptr) {
+            if (n->val != head->val)
+                return false;
+            n = n->next;
+            return true;
         }
 
-      int i = 0, j = El.size() -1;
-      while(i < j && El[i] == El[j]){
-        i++;
-        j--;
-      }
-      return i >= j;
-    };
+        bool r = recursion(head->next);
 
-  
+        if (n->val != head->val) {
+            n = n->next;
+            return false;
+        }
+        n = n->next;
+        return r && true;
+    }
+    bool isPalindrome(ListNode* head) {
+        n = head;
+       return recursion(head);
+    };
 };
